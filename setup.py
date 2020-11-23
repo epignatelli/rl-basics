@@ -8,6 +8,6 @@ setup(name='rl-basics',
       author='Eduardo Pignatelli',
       author_email='edu.pignatelli@gmail.com',
       url='https://github.com/epignateli/rl-basics',
-      packages=['drl', 'rl', 'rl.agents', 'rl.base'],
+      packages=['rl', 'rl.agents', 'rl.base'],
       install_requires=["bsuite", "jaxlib", "jax"]
      )
