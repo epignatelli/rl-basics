@@ -46,10 +46,12 @@ class QLearning(base.Agent):
         if r is None:
             return
 
-        # get current estimate
+        # get current q
         current_estimate = self.q_table.get(s, a)
-
+        # get current estimate for next state
         q_values = jnp.array([self.q_table.get(s_next, action) for action in range(self.action_spec.num_values)])
+        # apply bellman optimality to get the greedy action
         q = current_estimate + self.alpha * (r + self.gamma * jnp.max(q_values) - current_estimate)
+        # update the q-value for (s, a)
         self.q_table.update(s, a, q)
         return
