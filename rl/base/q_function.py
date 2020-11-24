@@ -1,4 +1,4 @@
-class QTable():
+class Table():
     def __init__(self):
         self._dict = dict()
 

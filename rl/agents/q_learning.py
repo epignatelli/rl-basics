@@ -3,7 +3,7 @@ import jax
 import jax.numpy as jnp
 import dm_env
 from bsuite.baselines import base
-from rl.base.q_function import QTable
+from rl.base.q_function import Table
 
 
 class QLearning(base.Agent):
@@ -14,7 +14,7 @@ class QLearning(base.Agent):
         self.alpha = alpha
         self.gamma = gamma
         self.epsilon = epsilon
-        self.q_table = QTable()
+        self.q_table = Table()
         return
 
     def select_action(
@@ -23,7 +23,7 @@ class QLearning(base.Agent):
     ) -> base.Action:
         """Selects an action based on an epsilon-greedy policy"""
         # return random action with epsilon probability
-        if jax.random.normal(self.rng, (1,)) > self.epsilon:
+        if jax.random.uniform(self.rng, (1,)) > self.epsilon:
             return jax.random.randint(self.rng, (1,), 0, self.action_spec.num_values)
         # otherwise compute the q-values for all the available actions on state s_{t+1}
         s = timestep.observation
@@ -39,12 +39,9 @@ class QLearning(base.Agent):
     ):
         """Makes the current policy epsilon-greedy with respect to the current Q-function and updates the Q-table"""
         s = timestep.observation
-        r = timestep.reward
         a = action
+        r = timestep.reward
         s_next = new_timestep.observation
-
-        if r is None:
-            return
 
         # get current q
         current_estimate = self.q_table.get(s, a)
