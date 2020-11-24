@@ -21,7 +21,8 @@ class QLearning(base.Agent):
         self,
         timestep: dm_env.TimeStep,
     ) -> base.Action:
-        """Selects an action based on an epsilon-greedy policy"""
+        """Maps the current state-action pair to a new state-action pair.
+        Q-Learning selects an action based on an epsilon-greedy policy"""
         # return random action with epsilon probability
         if jax.random.uniform(self.rng, (1,)) > self.epsilon:
             return jax.random.randint(self.rng, (1,), 0, self.action_spec.num_values)
