@@ -52,7 +52,7 @@ class Sarsa(base.Agent):
         # get current q-value for state-action s1a1
         q_s1a1 = self.q_table.get(s1, a1)
         # apply sarsa bellman optimality equation using the action following the current policy
-        q = q_s0a0 + self.alpha * (r + self.gamma * q_s1a1 - q_s0a0)
+        q = q_s0a0 + self.alpha * (r1 + self.gamma * q_s1a1 - q_s0a0)
         # update the q-value for (s, a)
         self.q_table.update(s0, a0, q)
         return
